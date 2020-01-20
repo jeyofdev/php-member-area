@@ -1,0 +1,21 @@
+{
+    "name": "jeyofdev/php-member-area",
+    "description": "create a member management system",
+    "keywords": ["php", "back-end", "member"],
+    "authors": [
+        {
+            "name": "jeyofdev",
+            "email": "jgregoire.pro@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "jeyofdev\\php\\member\\area\\": "src/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "filp/whoops": "^2.7",
+        "symfony/var-dumper": "^5.0"
+    }
+}
