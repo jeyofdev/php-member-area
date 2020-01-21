@@ -1,0 +1,11 @@
+$color: #e7e8f1;
+
+body {
+    background: $color;
+    height: 100vh;
+}
+
+p {
+    color: $color;
+    transform: translate3d(5px, 0, 0);
+}

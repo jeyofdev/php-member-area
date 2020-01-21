@@ -1,0 +1,17 @@
+/// convert px to rem
+///
+/// @param $size value in px to convert
+/// @param $base conversion base (default 16px = 1rem)
+@function rem($size, $base: 16) {
+    @return 1rem * $size / $base;
+}
+
+
+
+/// convert px to em
+///
+/// @param $size value in px to convert
+/// @param $base conversion base (default 16px = 1em)
+@function em($size, $base: 16) {
+    @return 1em * $size / $base;
+}
