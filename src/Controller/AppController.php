@@ -66,7 +66,7 @@
             $this->setController($match);
             $this->setAction($match);
 
-            $controller = new $this->controller();
+            $controller = new $this->controller($router);
             $method = $this->action;
             $controller->$method();
         }
@@ -83,7 +83,15 @@
             $target = str_replace('/', '.', $match["target"]);
             $page = explode('.', $target);
             
-            $this->controller = '\jeyofdev\php\member\area\Controller\\' . ucfirst($page[0]) . 'Controller';
+            $this->controller = "\jeyofdev\php\member\area\Controller\\";
+
+            if (count($page) === 2) {
+                $this->controller .= ucfirst($page[0]);
+            } else {
+                $this->controller .= ucfirst($page[0]) . "\\" . ucfirst($page[1]);
+            }
+
+            $this->controller .= "Controller";
 
             return $this;
         }
@@ -98,10 +106,10 @@
          */
         public function setAction (array $match) : self
         {
-            $target = str_replace('/', '.', $match["target"]);  // 'home.index';
+            $target = str_replace('/', '.', $match["target"]);  // ex: 'home.index';
             $page = explode('.', $target);
             
-            $this->action = $page[1];
+            $this->action = $page[array_key_last($page)];
 
             return $this;
         }
