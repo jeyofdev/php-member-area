@@ -15,7 +15,9 @@
     {
         public function index () : void
         {
-            $this->render('home.index');
+            $title = App::getInstance()->setTitle("Home")->getTitle();
+
+            $this->render('home.index', compact('title'));
         }
     }
 

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>member-area</title>
+        <title>member area <?= isset($title) ? "| $title" : null; ?></title>
 
         <link rel="stylesheet" href="http://localhost:8080/assets/css/app.css">
     </head>
