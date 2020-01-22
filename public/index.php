@@ -1,5 +1,6 @@
 <?php
 
+    use jeyofdev\php\member\area\Controller\AppController;
     use jeyofdev\php\member\area\Router\Router;
 
 
@@ -23,5 +24,8 @@
     $router = new Router(VIEW_PATH);
     $router
         ->get('/', 'home/index', 'home')
-        ->get('/register/', 'security/auth/register', 'register')
-        ->run();
+        ->get('/register/', 'security/auth/register', 'register');
+
+
+    // controller
+    AppController::getInstance()->run($router);
