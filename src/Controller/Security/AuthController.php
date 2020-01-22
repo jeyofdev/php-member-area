@@ -22,7 +22,7 @@
             $form = new RegisterForm($_POST, $errors);
 
             // url of the current page
-            $url = '';
+            $url = $this->router->url("register");
 
             $title = App::getInstance()->setTitle("Register")->getTitle();
             $bodyClass = strtolower($title);

@@ -24,7 +24,7 @@
     $router = new Router(VIEW_PATH);
     $router
         ->get('/', 'home/index', 'home')
-        ->get('/register/', 'security/auth/register', 'register');
+        ->match('/register/', 'security/auth/register', 'register');
 
 
     // controller
