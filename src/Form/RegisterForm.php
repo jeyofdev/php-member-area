@@ -20,12 +20,12 @@
         public function build (string $url, string $labelSubmit) : string
         {
             $this
-                ->formStart($url, "post", "my-5")
+                ->formStart($url, "post")
                 ->input("text", "username", "Username :", [], ["tag" => "div"])
                 ->input("text", "email", "Email :", [], ["tag" => "div"])
                 ->input("password", "password", "Password :", [], ["tag" => "div"])
                 ->input("password", "passwordConfirm", "Password Confirmation :", [], ["tag" => "div"])
-                ->submit($labelSubmit)
+                ->submit($labelSubmit, "btn btn-light")
                 ->reset("reset")
                 ->formEnd();
 

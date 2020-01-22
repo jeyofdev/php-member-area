@@ -25,8 +25,9 @@
             $url = '';
 
             $title = App::getInstance()->setTitle("Register")->getTitle();
+            $bodyClass = strtolower($title);
 
 
-            $this->render('security/auth/register', $this->router, compact('form', 'url', 'title'));
+            $this->render('security/auth/register', $this->router, compact('form', 'url', 'title', 'bodyClass'));
         }
     }

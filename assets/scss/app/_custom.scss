@@ -9,3 +9,16 @@ p {
     color: $color;
     transform: translate3d(5px, 0, 0);
 }
+
+.register .container > .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+
+    form {
+        width: 100%;
+
+        label {
+            color: $white;
+        }
+    }
+}

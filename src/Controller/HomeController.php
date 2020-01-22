@@ -16,8 +16,9 @@
         public function index () : void
         {
             $title = App::getInstance()->setTitle("Home")->getTitle();
+            $bodyClass = strtolower($title);
 
-            $this->render('home.index', $this->router, compact('title'));
+            $this->render('home.index', $this->router, compact('title', 'bodyClass'));
         }
     }
 
