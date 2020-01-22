@@ -18,7 +18,7 @@
             $title = App::getInstance()->setTitle("Home")->getTitle();
             $bodyClass = strtolower($title);
 
-            $this->render('home.index', $this->router, compact('title', 'bodyClass'));
+            $this->render('home.index', $this->router, $this->session, compact('title', 'bodyClass'));
         }
     }
 

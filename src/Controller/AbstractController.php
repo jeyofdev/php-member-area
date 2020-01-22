@@ -4,6 +4,7 @@
 
 
     use jeyofdev\php\member\area\Router\Router;
+    use jeyofdev\php\member\area\Session\Session;
 
 
     /**
@@ -23,10 +24,25 @@
 
 
         /**
+         * @var Session
+         */
+        protected $session;
+
+
+
+        /**
+         * @var Router
+         */
+        protected $router; 
+
+
+
+        /**
          * @param Router $router
          */
         public function __construct (Router $router)
         {
+            $this->session = new Session();
             $this->router = $router;
         }
 
@@ -35,7 +51,7 @@
         /**
          * {@inheritDoc}
          */
-        public function render (string $view, Router $router, array $datas = []) : void
+        public function render (string $view, Router $router, Session $session, array $datas = []) : void
         {
             ob_start();
             extract($datas);

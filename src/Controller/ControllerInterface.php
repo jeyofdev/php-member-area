@@ -4,6 +4,7 @@
 
 
     use jeyofdev\php\member\area\Router\Router;
+    use jeyofdev\php\member\area\Session\Session;
 
 
     /**
@@ -18,7 +19,7 @@
          *
          * @return void
          */
-        public function render (string $view, Router $router, array $datas = []);
+        public function render (string $view, Router $router, Session $session, array $datas = []);
 
 
 
