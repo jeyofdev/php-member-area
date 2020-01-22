@@ -17,7 +17,7 @@
         {
             $title = App::getInstance()->setTitle("Home")->getTitle();
 
-            $this->render('home.index', compact('title'));
+            $this->render('home.index', $this->router, compact('title'));
         }
     }
 

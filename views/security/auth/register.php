@@ -1,1 +1,6 @@
-<h1>register</h1>
+<h1 class="text-center"><?= $title; ?></h1>
+
+
+
+<!-- the registration form -->
+<?= $form->build($url, "Register"); ?>

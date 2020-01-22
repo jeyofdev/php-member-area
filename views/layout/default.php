@@ -10,7 +10,7 @@
     </head>
 
     <body class="d-flex flex-column vh-100">
-        <diV class="container text-center">
+        <diV class="container">
             <?= $content; ?>
         </diV>
 

@@ -3,6 +3,9 @@
     namespace jeyofdev\php\member\area\Controller;
 
 
+    use jeyofdev\php\member\area\Router\Router;
+
+
     /**
      * Manage the controllers
      * 
@@ -15,7 +18,7 @@
          *
          * @return void
          */
-        public function render (string $view, array $datas = []);
+        public function render (string $view, Router $router, array $datas = []);
 
 
 

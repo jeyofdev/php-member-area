@@ -3,6 +3,9 @@
     namespace jeyofdev\php\member\area\Controller;
 
 
+    use jeyofdev\php\member\area\Router\Router;
+
+
     /**
      * Manage the controllers
      * 
@@ -20,9 +23,19 @@
 
 
         /**
+         * @param Router $router
+         */
+        public function __construct (Router $router)
+        {
+            $this->router = $router;
+        }
+
+
+
+        /**
          * {@inheritDoc}
          */
-        public function render (string $view, array $datas = []) : void
+        public function render (string $view, Router $router, array $datas = []) : void
         {
             ob_start();
             extract($datas);

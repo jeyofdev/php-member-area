@@ -1,1 +1,1 @@
-<h1>Home page</h1> 
+<h1 class="text-center"><?= $title; ?></h1>
