@@ -19,6 +19,7 @@
         "symfony/var-dumper": "^5.0",
         "altorouter/altorouter": "^2.0",
         "doctrine/orm": "^2.7",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "phpmailer/phpmailer": "^6.1"
     }
 }

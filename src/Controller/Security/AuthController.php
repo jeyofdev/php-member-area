@@ -9,6 +9,7 @@
     use jeyofdev\php\member\area\Form\RegisterForm;
     use jeyofdev\php\member\area\Form\Validator\RegisterValidator;
     use jeyofdev\php\member\area\Helper\Helpers;
+    use jeyofdev\php\member\area\Mail\Mail;
 
 
     class AuthController extends AbstractController
@@ -37,6 +38,20 @@
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
 
+                    // set the confirmation email
+                    $subject = 'Confirmation de votre compte';
+                    $body = "Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/confirm/" . $user->getId() . "-" . $user->getConfirmation_token();
+                    $altBody = "Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/confirm/" . $user->getId() . "-" . $user->getConfirmation_token();
+
+                    // send the mail
+                    $mail = new Mail();
+                    $mail
+                        ->config()
+                        ->header($user->getEmail(), $user->getUsername())
+                        ->content($subject, $body, $altBody)
+                        ->send();
+
+                    // flash message
                     $this->session->setFlash("Congratulations, you are now registered", "success", "my-5");
 
                     // redirect the user
