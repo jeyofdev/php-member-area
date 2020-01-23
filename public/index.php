@@ -17,6 +17,7 @@
     // constantes
     define("ROOT", dirname(__DIR__));
     define("DEBUG_TIME", microtime(true));
+    define("CONFIG_PATH", ROOT . DIRECTORY_SEPARATOR . 'config');
     define("VIEW_PATH", ROOT . DIRECTORY_SEPARATOR . 'views');
 
 

@@ -5,6 +5,7 @@
 
     use jeyofdev\php\member\area\Router\Router;
     use jeyofdev\php\member\area\Session\Session;
+    use Doctrine\ORM\EntityManager;
 
 
     /**
@@ -24,6 +25,15 @@
 
 
         /**
+         * The path of config
+         * 
+         * @var string
+         */
+        private $configPath = CONFIG_PATH;
+
+
+
+        /**
          * @var Session
          */
         protected $session;
@@ -38,12 +48,22 @@
 
 
         /**
+         * @var EntityManager
+         */
+        protected $entityManager;
+
+
+
+        /**
          * @param Router $router
          */
         public function __construct (Router $router)
         {
             $this->session = new Session();
             $this->router = $router;
+
+            require $this->getConfigPath() . DIRECTORY_SEPARATOR . 'doctrine.php';
+            $this->entityManager = $entityManager;
         }
 
 
@@ -68,6 +88,16 @@
         public function getViewPath() : string
         {
             return $this->viewPath;
+        }
+
+
+
+        /**
+         * {@inheritDoc}
+         */
+        public function getConfigPath() : string
+        {
+            return $this->configPath;
         }
     }
 

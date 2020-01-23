@@ -2,10 +2,13 @@
 
     namespace jeyofdev\php\member\area\Controller\Security;
 
+
     use jeyofdev\php\member\area\App;
     use jeyofdev\php\member\area\Controller\AbstractController;
+    use jeyofdev\php\member\area\Entity\User;
     use jeyofdev\php\member\area\Form\RegisterForm;
     use jeyofdev\php\member\area\Form\Validator\RegisterValidator;
+    use jeyofdev\php\member\area\Helper\Helpers;
 
 
     class AuthController extends AbstractController
@@ -23,7 +26,22 @@
             $validator = new RegisterValidator("en", $_POST);
             if ($validator->isSubmit()) {
                 if ($validator->isValid()) {
+                    // save the user in the database
+                    $user = new User();
+                    $user
+                        ->setUsername($_POST["username"])
+                        ->setEmail($_POST["email"])
+                        ->setPassword($_POST["password"])
+                        ->setConfirmation_token(Helpers::str_random(60));
+
+                    $this->entityManager->persist($user);
+                    $this->entityManager->flush();
+
                     $this->session->setFlash("Congratulations, you are now registered", "success", "my-5");
+
+                    // redirect the user
+                    $url = $this->router->url("home");
+                    App::redirect(301, $url);
                 } else {
                     $errors = $validator->getErrors();
                     $errors["form"] = true;
