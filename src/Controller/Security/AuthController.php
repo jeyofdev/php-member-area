@@ -24,9 +24,15 @@
             $errors = []; // form errors
             $flash = null; // flash message
 
-            $validator = new RegisterValidator("en", $_POST);
+            /**
+             * repository of the entity 'user'
+             */
+            $userRepository = $this->entityManager->getRepository(User::class);
+
+            $validator = new RegisterValidator("en", $_POST, $userRepository);
             if ($validator->isSubmit()) {
                 if ($validator->isValid()) {
+
                     // save the user in the database
                     $user = new User();
                     $user

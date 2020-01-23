@@ -4,10 +4,11 @@
 
 
     use Doctrine\ORM\Mapping as ORM;
+    use jeyofdev\php\member\area\Repository\UserRepository;
 
 
     /**
-     * @ORM\Entity
+     * @ORM\Entity(repositoryClass=UserRepository::class)
      * @ORM\Table(name="users")
      */
     class User {
