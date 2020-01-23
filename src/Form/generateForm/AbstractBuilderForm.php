@@ -23,6 +23,25 @@
 
 
         /**
+         * The datas sent to the form
+         *
+         * @var array
+         */
+        private $datas;
+
+
+
+        /**
+          * The forms errors
+          *
+          * @var array
+          */
+        private $errors;
+
+
+
+
+        /**
          * The allowed values ​​of the 'method' attribute in the form tag
          */
         const METHOD_ALLOWED = ["get", "post"];
@@ -47,6 +66,14 @@
          * The authorized Boolean attributes
          */
         const ATTRIBUTE_BOOL_ALLOWED = ["autofocus", "disabled", "readonly", "required", "multiple"];
+
+
+
+        public function __construct ($datas, array $errors)
+        {
+            $this->datas = $datas;
+            $this->errors = $errors;
+        }
 
 
 
@@ -83,16 +110,18 @@
         /**
          * {@inheritDoc}
          */
-        public function input (string $type, string $name, ?string $label, array $options, array $surround = [])
+        public function input (string $type, string $name, ?string $label, array $options, array $surround = [], ?string $errorClass = null)
         {
             $type = strtolower($type);
             $this->checkValueIsInArray($type, self::INPUT_TYPE_ALLOWED, "type");
 
             $class = array_key_exists("class", $options) ? $this->getClass($name, $options["class"]) : $this->getClass($name);
+            $value = !is_null($this->getValue($name)) ? 'value="' . $this->getValue($name) . '"' : null;
             $options = $this->getOptions($options);
 
             $input = '<label for="' . $name . '">' . $label . '</label>';
-            $input .= '<input type="' . $type . '" class="' . $class . '" id="' . $name . '" name="' . $name . '" ' . $options . '>';
+            $input .= '<input type="' . $type . '" class="' . $class . '" id="' . $name . '" name="' . $name . '" ' . $value . $options . '>';
+            $input .= $this->getErrorFeddback($name, $errorClass);
 
             $input = $this->generateFormElement($input, $surround);
 
@@ -173,7 +202,31 @@
         private function getClass (string $key, ?string $class = null) : ?string
         {
             $inputClass = $class;
+            if (isset($this->errors[$key])) {
+                $inputClass .= !is_null($inputClass) ? " " : null;
+                $inputClass .= 'is-invalid';
+            }
+
             return $inputClass;
+        }
+
+
+
+        /**
+         * Get the value of a field
+         *
+         * @return mixed
+         */
+        private function getValue (string $key)
+        {
+            if (is_array($this->datas)) {
+                $value = $this->datas[$key] ?? null;
+            } else {
+                $method = "get" . ucfirst($key);
+                $value = $this->datas->$method() ?? null;
+            }
+
+            return ($value !== "") ? $value : null;
         }
 
 
@@ -198,6 +251,26 @@
             }
 
             return isset($items) ? implode(" ", $items) : null;
+        }
+
+
+
+        /**
+         * Display the form errors
+         *
+         * @return string
+         */
+        protected function getErrorFeddback (string $key, ?string $errorClass = null) : ?string
+        {
+            $class = !is_null($errorClass) ? ' class="' . $errorClass . '"' : null;
+
+            $invalidFeedback = null;
+            
+            if (isset($this->errors[$key])) {
+                $invalidFeedback .= '<div ' . $class . '>' . implode("<br>", $this->errors[$key]) . '</div>';
+            }
+
+            return $invalidFeedback;
         }
 
 

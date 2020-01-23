@@ -33,7 +33,7 @@
          *
          * @return self
          */
-        public function input (string $type, string $name, string $label, array $options, array $surround = []);
+        public function input (string $type, string $name, string $label, array $options, array $surround = [], ?string $errorClass = null);
 
 
 

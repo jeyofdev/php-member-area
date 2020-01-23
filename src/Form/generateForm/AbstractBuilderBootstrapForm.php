@@ -13,13 +13,13 @@
         /**
          * {@inheritDoc}
          */
-        public function input (string $type, string $name, ?string $label, array $options, array $surround = []) : self
+        public function input (string $type, string $name, ?string $label, array $options, array $surround = [], ?string $errorClass = "invalid-feedback") : self
         {
             $bootstrapClass = $this->SetBootstrapClass($options, $surround);
             $options = $bootstrapClass[0];
             $surround = $bootstrapClass[1];
             
-            return parent::input($type, $name, $label, $options, $surround);
+            return parent::input($type, $name, $label, $options, $surround, $errorClass);
         }
 
 
@@ -40,6 +40,16 @@
         public function reset (string $label, ?string $class = "btn btn-danger") : self
         {
             return parent::reset($label, $class);
+        }
+
+
+
+        /**
+         * {@inheritDoc}
+         */
+        protected function getErrorFeddback (string $key, ?string $errorClass = "invalid-feedback") : ?string
+        {
+            return parent::getErrorFeddback($key, $errorClass);
         }
 
 

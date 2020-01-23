@@ -13,5 +13,14 @@
      */
     class Validator extends ValitronValidator
     {
-        
+        /**
+         * Validate a form field 
+         * and set the error message if it contains errors
+         *
+         * @return string
+         */
+        protected function checkAndSetLabel($field, $message, $params) : string
+        {
+            return str_replace('{field}', '', $message);
+        }
     }
