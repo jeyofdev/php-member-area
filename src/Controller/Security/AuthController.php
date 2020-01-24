@@ -156,10 +156,27 @@
             $errors = []; // form errors
             $flash = null; // flash message
 
+            /**
+             * repository of the entity 'user'
+             */
+            $userRepository = $this->entityManager->getRepository(User::class);
+
             $validator = new LoginValidator("en", $_POST);
             if ($validator->isSubmit()) {
                 if ($validator->isValid()) {
-                    dd(true);
+                    $user = $userRepository->findOneBy(["username" => $_POST["username"]]);
+
+                    // check if the user exist
+                    if (!is_null($user) && !is_null($user->getConfirmed_at()) && password_verify($_POST['password'], $user->getPassword())) {
+                        // session
+                        $this->session->setFlash("Welcome " . $user->getUsername() . ", you are connected to your account.", "success", "my-5");
+                        $this->session->write("auth", $user);
+
+                        $url = $this->router->url("account");
+                        App::redirect(301, $url);
+                    } else {
+                        $this->session->setFlash("Incorrect username or password.", "danger", "my-5");
+                    }
                 } else {
                     $errors = $validator->getErrors();
                     $errors["form"] = true;
