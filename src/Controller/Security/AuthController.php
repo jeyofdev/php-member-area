@@ -184,7 +184,7 @@
             }
 
             // form
-            $form = new LoginForm($_POST, $errors);
+            $form = new LoginForm($_POST, $errors, $this->router);
 
             // url of the current page
             $url = $this->router->url("login");
@@ -200,5 +200,21 @@
 
 
             $this->render('security/auth/login', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass', 'flash'));
+        }
+
+
+
+        /**
+         * Manage forgotten password
+         *
+         * @return void
+         */
+        public function forget () : void
+        {
+            $title = App::getInstance()->setTitle("Forget")->getTitle();
+            $bodyClass = strtolower($title);
+
+
+            $this->render('security/auth/forget', $this->router, $this->session, compact('title', 'bodyClass'));
         }
     }

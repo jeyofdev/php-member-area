@@ -28,7 +28,8 @@
         ->match('/login/', 'security/auth/login', 'login')
         ->match('/register/', 'security/auth/register', 'register')
         ->match('/confirm/[i:id]-[*:token]/', 'security/auth/confirm', 'confirm')
-        ->get('/account/', 'admin/account', 'account');
+        ->get('/account/', 'admin/account', 'account')
+        ->match('/forget/', 'security/auth/forget', 'forget');
 
 
     // controller

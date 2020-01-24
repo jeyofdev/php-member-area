@@ -17,7 +17,7 @@
         /**
          * {@inheritDoc}
          */
-        public function build (string $url, string $labelSubmit) : string
+        public function build (string $url, string $labelSubmit, ?string $urlLink = null) : string
         {
             $this
                 ->formStart($url, "post")

@@ -8,5 +8,5 @@
 
 <div class="row form-container bg-primary p-3 rounded">
     <!-- the registration form -->
-    <?= $form->build($url, "Login"); ?>
+    <?= $form->build($url, "Login", "forget"); ?>
 </div>

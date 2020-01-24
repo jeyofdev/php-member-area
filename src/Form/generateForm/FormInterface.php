@@ -15,7 +15,7 @@
          *
          * @return string
          */
-        public function build (string $url, string $labelSubmit);
+        public function build (string $url, string $labelSubmit, ?string $urlLink = null);
 
 
 
