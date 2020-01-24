@@ -25,6 +25,7 @@
     $router = new Router(VIEW_PATH);
     $router
         ->get('/', 'home/index', 'home')
+        ->match('/login/', 'security/auth/login', 'login')
         ->match('/register/', 'security/auth/register', 'register')
         ->match('/confirm/[i:id]-[*:token]/', 'security/auth/confirm', 'confirm')
         ->get('/account/', 'admin/account', 'account');

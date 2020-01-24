@@ -8,6 +8,7 @@
     use jeyofdev\php\member\area\App;
     use jeyofdev\php\member\area\Controller\AbstractController;
     use jeyofdev\php\member\area\Entity\User;
+    use jeyofdev\php\member\area\Form\LoginForm;
     use jeyofdev\php\member\area\Form\RegisterForm;
     use jeyofdev\php\member\area\Form\Validator\RegisterValidator;
     use jeyofdev\php\member\area\Helper\Helpers;
@@ -140,5 +141,30 @@
 
 
             $this->render('security/auth/confirm', $this->router, $this->session, compact('title', 'bodyClass', 'flash'));
+        }
+
+
+
+        /**
+         * Manage a user's connection
+         *
+         * @return void
+         */
+        public function login () : void
+        {
+            $errors = []; // form errors
+            $flash = null; // flash message
+
+            // form
+            $form = new LoginForm($_POST, $errors);
+
+            // url of the current page
+            $url = $this->router->url("login");
+
+            $title = App::getInstance()->setTitle("Login")->getTitle();
+            $bodyClass = strtolower($title);
+
+
+            $this->render('security/auth/login', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass'));
         }
     }
