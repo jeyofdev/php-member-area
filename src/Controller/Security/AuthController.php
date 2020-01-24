@@ -123,7 +123,7 @@
                 $this->session->setFlash("Your account has been validated", "success", "my-5");
                 $this->session->write("auth", $currentUser);
 
-                $url = $this->router->url("home");
+                $url = $this->router->url("account");
                 App::redirect(301, $url);
             } else {
                 $this->session->setFlash("This token is no longer valid", "danger", "my-5");
