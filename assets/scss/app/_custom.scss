@@ -1,5 +1,6 @@
 .register .container > .form-container,
-.login .container > .form-container {
+.login .container > .form-container,
+.forget .container > .form-container {
     max-width: 500px;
     margin: 0 auto;
 
@@ -13,7 +14,8 @@
 }
 
 .register .container > .alert,
-.login .container > .alert {
+.login .container > .alert,
+.forget .container > .alert {
     max-width: 500px;
     margin: 0 auto;
 }

@@ -8,9 +8,11 @@
     use jeyofdev\php\member\area\App;
     use jeyofdev\php\member\area\Controller\AbstractController;
     use jeyofdev\php\member\area\Entity\User;
+    use jeyofdev\php\member\area\Form\ForgetForm;
     use jeyofdev\php\member\area\Form\LoginForm;
     use jeyofdev\php\member\area\Form\RegisterForm;
-    use jeyofdev\php\member\area\Form\Validator\LoginValidator;
+use jeyofdev\php\member\area\Form\Validator\ForgetValidator;
+use jeyofdev\php\member\area\Form\Validator\LoginValidator;
     use jeyofdev\php\member\area\Form\Validator\RegisterValidator;
     use jeyofdev\php\member\area\Helper\Helpers;
     use jeyofdev\php\member\area\Mail\Mail;
@@ -211,10 +213,35 @@
          */
         public function forget () : void
         {
+            $errors = []; // form errors
+            $flash = null; // flash message
+
+            $validator = new ForgetValidator("en", $_POST);
+            if ($validator->isSubmit()) {
+                if ($validator->isValid()) {
+                    dd(true);
+                } else {
+                    $errors = $validator->getErrors();
+                    $errors["form"] = true;
+                }
+            }
+
+            // form
+            $form = new ForgetForm($_POST, $errors);
+
+            // url of the current page
+            $url = $this->router->url("forget");
+
+            // flash message
+            if (array_key_exists("form", $errors)) {
+                $this->session->setFlash("The form contains errors", "danger", "my-5");
+            }
+            $flash = $this->session->generateFlash();
+
             $title = App::getInstance()->setTitle("Forget")->getTitle();
             $bodyClass = strtolower($title);
 
 
-            $this->render('security/auth/forget', $this->router, $this->session, compact('title', 'bodyClass'));
+            $this->render('security/auth/forget', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass', 'flash'));
         }
     }

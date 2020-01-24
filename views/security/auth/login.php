@@ -7,6 +7,6 @@
 
 
 <div class="row form-container bg-primary p-3 rounded">
-    <!-- the registration form -->
+    <!-- the login form -->
     <?= $form->build($url, "Login", "forget"); ?>
 </div>
