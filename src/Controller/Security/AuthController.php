@@ -10,6 +10,7 @@
     use jeyofdev\php\member\area\Entity\User;
     use jeyofdev\php\member\area\Form\LoginForm;
     use jeyofdev\php\member\area\Form\RegisterForm;
+    use jeyofdev\php\member\area\Form\Validator\LoginValidator;
     use jeyofdev\php\member\area\Form\Validator\RegisterValidator;
     use jeyofdev\php\member\area\Helper\Helpers;
     use jeyofdev\php\member\area\Mail\Mail;
@@ -155,16 +156,32 @@
             $errors = []; // form errors
             $flash = null; // flash message
 
+            $validator = new LoginValidator("en", $_POST);
+            if ($validator->isSubmit()) {
+                if ($validator->isValid()) {
+                    dd(true);
+                } else {
+                    $errors = $validator->getErrors();
+                    $errors["form"] = true;
+                }
+            }
+
             // form
             $form = new LoginForm($_POST, $errors);
 
             // url of the current page
             $url = $this->router->url("login");
 
+            // flash message
+            if (array_key_exists("form", $errors)) {
+                $this->session->setFlash("The form contains errors", "danger", "my-5");
+            }
+            $flash = $this->session->generateFlash();
+
             $title = App::getInstance()->setTitle("Login")->getTitle();
             $bodyClass = strtolower($title);
 
 
-            $this->render('security/auth/login', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass'));
+            $this->render('security/auth/login', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass', 'flash'));
         }
     }
