@@ -3,6 +3,8 @@
     namespace jeyofdev\php\member\area\Controller\Security;
 
 
+    use DateTime;
+    use DateTimeZone;
     use jeyofdev\php\member\area\App;
     use jeyofdev\php\member\area\Controller\AbstractController;
     use jeyofdev\php\member\area\Entity\User;
@@ -15,7 +17,7 @@
     class AuthController extends AbstractController
     {
         /**
-         * Manage the controller linked to authentication
+         * Manage the user registration
          *
          * @author jeyofdev <jgregoire.pro@gmail.com>
          */
@@ -58,7 +60,7 @@
                         ->send();
 
                     // flash message
-                    $this->session->setFlash("Congratulations, you are now registered", "success", "my-5");
+                    $this->session->setFlash("Congratulations, you are now registered. An email has been sent to you to confirm your account.", "success", "my-5");
 
                     // redirect the user
                     $url = $this->router->url("home");
@@ -86,5 +88,57 @@
 
 
             $this->render('security/auth/register', $this->router, $this->session, compact('form', 'url', 'flash', 'title', 'bodyClass'));
+        }
+
+
+
+        /**
+         * Confirm user registration
+         *
+         * @author jeyofdev <jgregoire.pro@gmail.com>
+         */
+        public function confirm () : void
+        {
+            // url settings of the current page
+            $params = $this->router->getParams();
+            $userId = (int)$params["id"];
+            $token = $params["token"];
+
+            // get the current user
+            $userRepository = $this->entityManager->getRepository(User::class);
+            $currentUser = $userRepository->find($userId);
+
+            if (!is_null($currentUser) && $currentUser->getConfirmation_token() === $token) {
+                $timeZone = new DateTimeZone('Europe/Paris');
+                $currentDate = new DateTime('now', $timeZone);
+
+                $currentUser
+                    ->setConfirmation_token()
+                    ->setConfirmed_at($currentDate);
+
+                $this->entityManager->persist($currentUser);
+                $this->entityManager->flush();
+
+                // session
+                $this->session->setFlash("Your account has been validated", "success", "my-5");
+                $this->session->write("auth", $currentUser);
+
+                $url = $this->router->url("home");
+                App::redirect(301, $url);
+            } else {
+                $this->session->setFlash("This token is no longer valid", "danger", "my-5");
+                
+                $url = $this->router->url("home");
+                App::redirect(301, $url);
+            }
+
+            // flash message
+            $flash = $this->session->generateFlash();
+
+            $title = App::getInstance()->setTitle("Confirm")->getTitle();
+            $bodyClass = strtolower($title);
+
+
+            $this->render('security/auth/confirm', $this->router, $this->session, compact('title', 'bodyClass', 'flash'));
         }
     }

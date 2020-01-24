@@ -3,6 +3,7 @@
     namespace jeyofdev\php\member\area\Entity;
 
 
+    use DateTimeInterface;
     use Doctrine\ORM\Mapping as ORM;
     use jeyofdev\php\member\area\Repository\UserRepository;
 
@@ -46,6 +47,13 @@
          * @ORM\Column(type="string", length=60, nullable=true)
          */
         protected $confirmation_token;
+
+
+
+        /**
+         * @ORM\Column(type="datetime", nullable=true)
+         */
+        protected $confirmed_at;
 
 
 
@@ -141,7 +149,7 @@
          * 
          * @return  string
          */ 
-        public function getConfirmation_token() : string
+        public function getConfirmation_token() : ?string
         {
             return $this->confirmation_token;
         }
@@ -153,9 +161,35 @@
          *
          * @return  self
          */ 
-        public function setConfirmation_token(string $confirmation_token) : self
+        public function setConfirmation_token(?string $confirmation_token = null) : self
         {
             $this->confirmation_token = $confirmation_token;
+            return $this;
+        }
+
+
+
+        /**
+         * Get the value of confirmed_at
+         * 
+         * @return DateTimeInterface|null
+         * 
+         */ 
+        public function getConfirmed_at() : ?DateTimeInterface
+        {
+            return $this->confirmed_at;
+        }
+
+
+
+        /**
+         * Set the value of confirmed_at
+         *
+         * @return  self
+         */ 
+        public function setConfirmed_at(DateTimeInterface $confirmed_at) : self
+        {
+            $this->confirmed_at = $confirmed_at;
             return $this;
         }
     }
