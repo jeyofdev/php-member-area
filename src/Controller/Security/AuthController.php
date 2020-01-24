@@ -207,7 +207,7 @@ use jeyofdev\php\member\area\Form\Validator\LoginValidator;
 
 
         /**
-         * Manage forgotten password
+         * Manage the forgotten password request
          *
          * @return void
          */
@@ -216,10 +216,34 @@ use jeyofdev\php\member\area\Form\Validator\LoginValidator;
             $errors = []; // form errors
             $flash = null; // flash message
 
-            $validator = new ForgetValidator("en", $_POST);
+            /**
+             * repository of the entity 'user'
+             */
+            $userRepository = $this->entityManager->getRepository(User::class);
+
+            $validator = new ForgetValidator("en", $_POST, $userRepository);
             if ($validator->isSubmit()) {
                 if ($validator->isValid()) {
-                    dd(true);
+                    $user = $userRepository->findOneBy(["email" => $_POST["email"]]);
+
+                    // check if the user exist
+                    if (!is_null($user) && !is_null($user->getConfirmed_at())) {
+                        $timeZone = new DateTimeZone('Europe/Paris');
+                        $currentDate = new DateTime('now', $timeZone);
+
+                        // save the user in the database
+                        $user
+                            ->setReset_token(Helpers::str_random(60))
+                            ->setReset_at($currentDate);
+
+                        $this->entityManager->persist($user);
+                        $this->entityManager->flush();
+
+                        $this->session->setFlash("The password reminder instructions have been emailed to you.", "success", "my-5");
+
+                        $url = $this->router->url("login");
+                        App::redirect(301, $url);
+                    }
                 } else {
                     $errors = $validator->getErrors();
                     $errors["form"] = true;

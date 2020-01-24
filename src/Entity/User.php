@@ -58,6 +58,20 @@
 
 
         /**
+         * @ORM\Column(type="string", length=60, nullable=true)
+         */
+        protected $reset_token;
+
+
+
+        /**
+         * @ORM\Column(type="datetime", nullable=true)
+         */
+        protected $reset_at;
+
+
+
+        /**
          * Get the value of id
          * 
          * @return  int
@@ -190,6 +204,54 @@
         public function setConfirmed_at(DateTimeInterface $confirmed_at) : self
         {
             $this->confirmed_at = $confirmed_at;
+            return $this;
+        }
+
+
+
+        /**
+         * Get the value of reset_token
+         */ 
+        public function getReset_token() : ?string
+        {
+            return $this->reset_token;
+        }
+
+
+
+        /**
+         * Set the value of reset_token
+         *
+         * @return  self
+         */ 
+        public function setReset_token(?string $reset_token = null) : self
+        {
+            $this->reset_token = $reset_token;
+            return $this;
+        }
+
+
+
+        /**
+         * Get the value of reset_at
+         * 
+         * @return DateTimeInterface|null
+         */ 
+        public function getReset_at() : ?DateTimeInterface
+        {
+            return $this->reset_at;
+        }
+
+
+
+        /**
+         * Set the value of reset_at
+         *
+         * @return  self
+         */ 
+        public function setReset_at(DateTimeInterface $reset_at) : self
+        {
+            $this->reset_at = $reset_at;
             return $this;
         }
     }
