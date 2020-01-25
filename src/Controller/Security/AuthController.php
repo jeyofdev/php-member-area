@@ -239,7 +239,21 @@ use jeyofdev\php\member\area\Form\Validator\LoginValidator;
                         $this->entityManager->persist($user);
                         $this->entityManager->flush();
 
-                        $this->session->setFlash("The password reminder instructions have been emailed to you.", "success", "my-5");
+                        // set the confirmation email
+                        $subject = 'Change your password';
+                        $body = "In order to change your password please click on this link http://localhost:8000/reset/" . $user->getId() . "-" . $user->getReset_token();
+                        $altBody = "In order to change your password please click on this link http://localhost:8000/reset/" . $user->getId() . "-" . $user->getReset_token();
+
+                        // send the mail
+                        $mail = new Mail();
+                        $mail
+                            ->config()
+                            ->header($user->getEmail(), $user->getUsername())
+                            ->content($subject, $body, $altBody)
+                            ->send();
+
+                        // flash message
+                        $this->session->setFlash("The password reminder instructions have been emailed to you..", "success", "my-5");
 
                         $url = $this->router->url("login");
                         App::redirect(301, $url);
