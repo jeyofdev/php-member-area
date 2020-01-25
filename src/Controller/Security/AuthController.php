@@ -151,7 +151,7 @@ use jeyofdev\php\member\area\Form\Validator\LoginValidator;
         /**
          * Manage a user's connection
          *
-         * @return void
+         * @author jeyofdev <jgregoire.pro@gmail.com>
          */
         public function login () : void
         {
@@ -209,7 +209,7 @@ use jeyofdev\php\member\area\Form\Validator\LoginValidator;
         /**
          * Manage the forgotten password request
          *
-         * @return void
+         * @author jeyofdev <jgregoire.pro@gmail.com>
          */
         public function forget () : void
         {
@@ -281,5 +281,21 @@ use jeyofdev\php\member\area\Form\Validator\LoginValidator;
 
 
             $this->render('security/auth/forget', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass', 'flash'));
+        }
+
+
+
+        /**
+         * Manage password change
+         *
+         * @author jeyofdev <jgregoire.pro@gmail.com>
+         */
+        public function reset () : void
+        {
+            $title = App::getInstance()->setTitle("Reset")->getTitle();
+            $bodyClass = strtolower($title);
+
+
+            $this->render('security/auth/reset', $this->router, $this->session, compact('title', 'bodyClass'));
         }
     }
