@@ -209,6 +209,22 @@
 
 
         /**
+         * Manage the disconnection
+         *
+         * @author jeyofdev <jgregoire.pro@gmail.com>
+         */
+        public function logout () : void
+        {
+            $this->session->setFlash("You are now disconnected.", "success", "my-5");
+            $this->session->destroy("auth");
+
+            $url = $this->router->url("login");
+            App::redirect(301, $url);
+        }
+
+
+
+        /**
          * Manage the forgotten password request
          *
          * @author jeyofdev <jgregoire.pro@gmail.com>

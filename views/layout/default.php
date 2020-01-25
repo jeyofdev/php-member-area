@@ -10,9 +10,41 @@
     </head>
 
     <body class="d-flex flex-column vh-100 <?= $bodyClass; ?>">
-        <diV class="container">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $router->url("home"); ?>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $router->url("account"); ?>">My page</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <?php if ($session->exist("auth")) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $router->url("logout"); ?>">Log out</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $router->url("register"); ?>">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $router->url("login"); ?>">Log in</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
             <?= $content; ?>
-        </diV>
+        </div>
 
         <!-- loading time of the page -->
         <?php if (defined("DEBUG_TIME")) : ?>

@@ -122,4 +122,16 @@
 
             return false;
         }
+
+
+
+        /**
+         * Delete a session variable
+         *
+         * @return bool
+         */
+        public function destroy (string $key) : void
+        {
+            unset($_SESSION[$key]);
+        }
     }
