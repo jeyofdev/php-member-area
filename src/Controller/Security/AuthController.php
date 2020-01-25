@@ -157,6 +157,12 @@
          */
         public function login () : void
         {
+            // Redirect if user is logged in
+            if($this->session->exist('auth')) {
+                $url = $this->router->url("account");
+                App::redirect(301, $url);
+            }
+
             $errors = []; // form errors
             $flash = null; // flash message
 

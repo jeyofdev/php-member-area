@@ -20,9 +20,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $router->url("home"); ?>">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= $router->url("account"); ?>">My page</a>
-                    </li>
+                    <?php if ($session->exist("auth")) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= $router->url("account"); ?>">My page</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
 
                 <ul class="navbar-nav">
