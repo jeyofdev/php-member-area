@@ -301,19 +301,43 @@
 
             $errors = []; // form errors
             $flash = null; // flash message
+            $form = null;
 
-            $validator = new ResetValidator("en", $_POST);
-            if ($validator->isSubmit()) {
-                if ($validator->isValid()) {
-                    dd(true);
-                } else {
-                    $errors = $validator->getErrors();
-                    $errors["form"] = true;
+            /**
+             * repository of the entity 'user'
+             */
+            $userRepository = $this->entityManager->getRepository(User::class);
+
+            $user = $userRepository->findOneBy(["id" => $userId, "reset_token" => $token]);
+            if (is_null($user)) {
+                $this->session->setFlash("This token is not valid", "danger", "my-5");
+            } else {
+                $validator = new ResetValidator("en", $_POST, $userRepository);
+                if ($validator->isSubmit()) {
+                    if ($validator->isValid()) {
+                        $user = $userRepository->findOneBy(["id" => $userId, "reset_token" => $token]);
+                        $user
+                            ->setReset_token()
+                            ->setReset_at();
+    
+                        $this->entityManager->persist($user);
+                        $this->entityManager->flush();
+    
+                        // session
+                        $this->session->setFlash("Your password has been successfully changed", "success", "my-5");
+                        $this->session->write("auth", $user);
+    
+                        $url = $this->router->url("account");
+                        App::redirect(301, $url);
+                    } else {
+                        $errors = $validator->getErrors();
+                        $errors["form"] = true;
+                    }
                 }
+    
+                // form
+                $form = new ResetForm($_POST, $errors);
             }
-
-            // form
-            $form = new ResetForm($_POST, $errors);
 
             // url of the current page
             $url = $this->router->url("reset", ["id" => $userId, "token" => $token]);

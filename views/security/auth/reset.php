@@ -5,7 +5,9 @@
 <?= $flash; ?>
 
 
-<div class="row form-container bg-primary p-3 rounded">
-    <!-- the registration form -->
-    <?= $form->build($url, "Update"); ?>
-</div>
+<?php if (!is_null($form)) : ?>
+    <div class="row form-container bg-primary p-3 rounded">
+        <!-- the reset form -->
+        <?= $form->build($url, "Update"); ?>
+    </div>
+<?php endif; ?>

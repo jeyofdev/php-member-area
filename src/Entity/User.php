@@ -249,7 +249,7 @@
          *
          * @return  self
          */ 
-        public function setReset_at(DateTimeInterface $reset_at) : self
+        public function setReset_at(?DateTimeInterface $reset_at = null) : self
         {
             $this->reset_at = $reset_at;
             return $this;
