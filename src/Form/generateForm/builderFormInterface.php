@@ -38,6 +38,15 @@
 
 
         /**
+         * Set a checkbox
+         *
+         * @return self
+         */
+        public function checkbox (string $name, ?string $label, string $labelClass, string $value, array $options, array $surround = [], ?string $errorClass = null);
+
+
+
+        /**
          * Set a submit button
          *
          * @return self

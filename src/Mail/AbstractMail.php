@@ -8,8 +8,10 @@
 
     /**
      * Manage the sending of mail
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
      */
-    class Mail implements MailInterface
+    abstract class AbstractMail implements MailInterface
     {
         /**
          * The path of config
@@ -33,6 +35,33 @@
          * @var array
          */
         private $mailConfig;
+
+
+
+        /**
+         * The subject of the email
+         *
+         * @var string
+         */
+        protected $subject;
+
+
+
+        /**
+         * The email content in HTML or plain text.
+         *
+         * @var string
+         */
+        protected $body;
+
+
+
+        /**
+         * The email content in plain text
+         *
+         * @var string
+         */
+        protected $altBody;
 
 
 
@@ -110,7 +139,6 @@
         public function send () : self
         {
             $this->mail->send();
-
             return $this;
         }
 
@@ -122,6 +150,84 @@
         public function getConfigPath() : string
         {
             return $this->configPath;
+        }
+
+
+
+        /**
+         * Get the subject of the email
+         *
+         * @return  string
+         */ 
+        public function getSubject () : string
+        {
+            return $this->subject;
+        }
+
+
+
+        /**
+         * Set the subject of the email
+         *
+         * @param  string  $subject  The subject of the email
+         * @return  self
+         */ 
+        public function setSubject (string $subject) : self
+        {
+            $this->subject = $subject;
+            return $this;
+        }
+
+
+
+        /**
+         * Get the email content in HTML or plain text.
+         *
+         * @return  string
+         */ 
+        public function getBody () : string
+        {
+            return $this->body;
+        }
+
+
+
+        /**
+         * Set the email content in HTML or plain text.
+         *
+         * @param  string  $body  The email content in HTML or plain text.
+         * @return  self
+         */ 
+        public function setBody (string $body) : self
+        {
+            $this->body = $body;
+            return $this;
+        }
+
+
+
+        /**
+         * Get the email content in plain text
+         *
+         * @return  string
+         */ 
+        public function getAltBody () : string
+        {
+            return $this->altBody;
+        }
+
+
+
+        /**
+         * Set the email content in plain text
+         *
+         * @param  string  $altBody  The email content in plain text
+         * @return  self
+         */ 
+        public function setAltBody (string $altBody) : self
+        {
+            $this->altBody = $altBody;
+            return $this;
         }
     }
 

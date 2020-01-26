@@ -17,7 +17,8 @@
     use jeyofdev\php\member\area\Form\Validator\RegisterValidator;
     use jeyofdev\php\member\area\Form\Validator\ResetValidator;
     use jeyofdev\php\member\area\Helper\Helpers;
-    use jeyofdev\php\member\area\Mail\Mail;
+    use jeyofdev\php\member\area\Mail\ForgetMail;
+    use jeyofdev\php\member\area\Mail\RegisterMail;
 
 
     class AuthController extends AbstractController
@@ -52,18 +53,9 @@
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
 
-                    // set the confirmation email
-                    $subject = 'Confirmation de votre compte';
-                    $body = "Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/confirm/" . $user->getId() . "-" . $user->getConfirmation_token();
-                    $altBody = "Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/confirm/" . $user->getId() . "-" . $user->getConfirmation_token();
-
                     // send the mail
-                    $mail = new Mail();
-                    $mail
-                        ->config()
-                        ->header($user->getEmail(), $user->getUsername())
-                        ->content($subject, $body, $altBody)
-                        ->send();
+                    $mail = new RegisterMail();
+                    $mail->execute($user);
 
                     // flash message
                     $this->session->setFlash("Congratulations, you are now registered. An email has been sent to you to confirm your account.", "success", "my-5");
@@ -263,18 +255,9 @@
                         $this->entityManager->persist($user);
                         $this->entityManager->flush();
 
-                        // set the confirmation email
-                        $subject = 'Change your password';
-                        $body = "In order to change your password please click on this link http://localhost:8000/reset/" . $user->getId() . "-" . $user->getReset_token();
-                        $altBody = "In order to change your password please click on this link http://localhost:8000/reset/" . $user->getId() . "-" . $user->getReset_token();
-
                         // send the mail
-                        $mail = new Mail();
-                        $mail
-                            ->config()
-                            ->header($user->getEmail(), $user->getUsername())
-                            ->content($subject, $body, $altBody)
-                            ->send();
+                        $mail = new ForgetMail();
+                        $mail->execute($user);
 
                         // flash message
                         $this->session->setFlash("The password reminder instructions have been emailed to you..", "success", "my-5");

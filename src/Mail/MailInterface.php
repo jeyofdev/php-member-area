@@ -6,6 +6,8 @@
 
     /**
      * Manage the sending of mail
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
      */
     interface MailInterface
     {

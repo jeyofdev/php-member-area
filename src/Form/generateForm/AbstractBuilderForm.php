@@ -135,6 +135,27 @@
         /**
          * {@inheritDoc}
          */
+        public function checkbox (string $name, ?string $label, string $labelClass, string $value, array $options, array $surround = [], ?string $errorClass = null)
+        {
+            $class = array_key_exists("class", $options) ? $this->getClass($name, $options["class"]) : $this->getClass($name);
+            $options = $this->getOptions($options);
+
+            $input = '<input type="checkbox" class="' . $class . '" id="' . $name . '" name="' . $name . '" value="' . $value . '" ' . $options . '>';
+            $input .= '<label class="' . $labelClass . '" for="' . $name . '">' . $label . '</label>';
+            $input .= $this->getErrorFeddback($name, $errorClass);
+
+            $input = $this->generateFormElement($input, $surround);
+
+            $this->form["fields"][$name] = $input;
+
+            return $this;
+        }
+
+
+
+        /**
+         * {@inheritDoc}
+         */
         public function submit (string $label, ?string $class = null)
         {
             return $this->button("submit", $label, $class);
