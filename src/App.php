@@ -4,6 +4,7 @@
 
 
     use jeyofdev\php\member\area\Helper\Helpers;
+    use jeyofdev\php\member\area\Router\Router;
 
 
     /**
@@ -73,11 +74,14 @@
          * Execute a redirection
          *
          * @param int $code http response code (301, 404, 200...)
-         * @param string|void $url The redirection url
+         * @param Router $router
+         * @param string $url The redirection route
          * @return void
          */
-        public static function redirect (int $code, $url) : void
+        public static function redirect (int $code, Router $router, string $route = "home") : void
         {
+            $url = $router->url($route);
+
             http_response_code($code);
             header("Location: " . $url);
             exit();

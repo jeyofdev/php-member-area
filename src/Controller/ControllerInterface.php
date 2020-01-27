@@ -29,12 +29,4 @@
          * @return string
          */
         public function getViewPath();
-
-
-        /**
-         * Get the path of configs
-         *
-         * @return string
-         */
-        public function getConfigPath();
     }

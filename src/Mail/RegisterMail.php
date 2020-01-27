@@ -23,8 +23,8 @@
         {
             // set the confirmation email
             $this->setSubject("Confirmation de votre compte");
-            $this->setBody("Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/confirm/" . $user->getId() . "-" . $user->getConfirmation_token());
-            $this->setAltBody("Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/confirm/" . $user->getId() . "-" . $user->getConfirmation_token());
+            $this->setBody("Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/register/confirm/" . $user->getId() . "-" . $user->getConfirmation_token());
+            $this->setAltBody("Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/register/confirm/" . $user->getId() . "-" . $user->getConfirmation_token());
 
             // send the mail
             $this

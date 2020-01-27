@@ -23,8 +23,7 @@
             if (!$session->exist("auth")) {
                 $session->setFlash("You are not authorized to access this page. You must log in to access it.", "danger", "my-5");
 
-                $url = $router->url("login");
-                App::redirect(301, $url);
+                App::redirect(301, $router, "login");
             }
         }
     }

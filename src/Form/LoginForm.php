@@ -44,7 +44,6 @@
                 ->formStart($url, "post")
                 ->input("text", "username", "Username :", [], ["tag" => "div"])
                 ->input("password", "password", 'Password : <a href="' . $urlForget . '">(I forgot my password)</a>', [], ["tag" => "div"])
-                ->checkbox("remember", "Remember me", "form-check-label", "1", [], ["tag" => "div"])
                 ->submit($labelSubmit, "btn btn-light")
                 ->formEnd();
 

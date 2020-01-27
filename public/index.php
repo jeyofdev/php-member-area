@@ -27,8 +27,8 @@
         ->get('/', 'home/index', 'home')
         ->match('/login/', 'security/auth/login', 'login')
         ->match('/logout/', 'security/auth/logout', 'logout')
-        ->match('/register/', 'security/auth/register', 'register')
-        ->match('/confirm/[i:id]-[*:token]/', 'security/auth/confirm', 'confirm')
+        ->match('/register/', 'security/register/index', 'register')
+        ->match('/register/confirm/[i:id]-[*:token]/', 'security/register/confirm')
         ->get('/account/', 'admin/account', 'account')
         ->match('/forget/', 'security/auth/forget', 'forget')
         ->match('/reset/[i:id]-[*:token]/', 'security/auth/reset', 'reset');
