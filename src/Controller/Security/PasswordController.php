@@ -70,8 +70,8 @@
             // flash message
             $flash = $this->session->generateFlash();
 
-            $title = App::getInstance()->setTitle("Reset")->getTitle();
-            $bodyClass = strtolower($title);
+            $title = App::getInstance()->setTitle("Update your password")->getTitle();
+            $bodyClass = "reset";
 
             $this->render('security/password/update', $this->router, $this->session, compact('form', 'url', 'title', 'bodyClass', 'flash'));
         }

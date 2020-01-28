@@ -4,9 +4,9 @@
      * Mail configuration parameters
      */
     $mailConfig = [
-        'host'       => 'smtp-mail.outlook.com',
-        'username'   => 'Your email address',
-        'password'   => 'Your email address password',
+        'host'       => 'your email host',  // ex: smtp-mail.outlook.com
+        'username'   => 'your username',
+        'password'   => 'your password',
         'port'       => 587
     ];
 
