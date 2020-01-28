@@ -24,6 +24,7 @@
     // router
     $router = new Router(VIEW_PATH);
     $router
+        ->match('/404/', 'error/404', '404')
         ->get('/', 'home/index', 'home')
 
         ->match('/login/', 'security/auth/login', 'login')

@@ -76,19 +76,24 @@
         /**
          * Set the controller of the url called
          *
+         * @param array|bool $match
          * @return self
          */
-        public function setController (array $match) : self
+        public function setController ($match) : self
         {
-            $target = str_replace('/', '.', $match["target"]);
-            $page = explode('.', $target);
-            
-            $this->controller = "\jeyofdev\php\member\area\Controller\\";
-
-            if (count($page) === 2) {
-                $this->controller .= ucfirst($page[0]);
+            if (!$match) {
+                $this->controller = "\jeyofdev\php\member\area\Controller\Error\Error";
             } else {
-                $this->controller .= ucfirst($page[0]) . "\\" . ucfirst($page[1]);
+                $target = str_replace('/', '.', $match["target"]);
+                $page = explode('.', $target);
+                
+                $this->controller = "\jeyofdev\php\member\area\Controller\\";
+
+                if (count($page) === 2) {
+                    $this->controller .= ucfirst($page[0]);
+                } else {
+                    $this->controller .= ucfirst($page[0]) . "\\" . ucfirst($page[1]);
+                }
             }
 
             $this->controller .= "Controller";
@@ -101,15 +106,19 @@
         /**
          * Set the action of the url called
          *
-         * @param array $match
+         * @param array|bool $match
          * @return self
          */
-        public function setAction (array $match) : self
+        public function setAction ($match) : self
         {
-            $target = str_replace('/', '.', $match["target"]);  // ex: 'home.index';
-            $page = explode('.', $target);
-            
-            $this->action = $page[array_key_last($page)];
+            if (!$match) {
+                $this->action = "notFound";
+            } else {
+                $target = str_replace('/', '.', $match["target"]);  // ex: 'home.index';
+                $page = explode('.', $target);
+                
+                $this->action = $page[array_key_last($page)];
+            }
 
             return $this;
         }

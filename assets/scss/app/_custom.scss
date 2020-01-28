@@ -29,3 +29,25 @@
     max-width: 500px;
     margin: 0 auto;
 }
+
+.not-found .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 0;
+
+    h2 {
+        font-size: rem(100);
+        font-weight: bold;
+    }
+
+    p {
+        font-size: rem(30);
+        margin-bottom: rem(48);
+    }
+
+    a {
+        font-size: rem(20);
+    }
+}
