@@ -23,8 +23,8 @@
         {
             // set the confirmation email
             $this->setSubject("Change your password");
-            $this->setBody("In order to change your password please click on this link http://localhost:8000/reset/" . $user->getId() . "-" . $user->getReset_token());
-            $this->setAltBody("In order to change your password please click on this link http://localhost:8000/reset/" . $user->getId() . "-" . $user->getReset_token());
+            $this->setBody("In order to change your password please click on this link http://localhost:8000" . $this->router->url("password_update", ["id" => $user->getId(), "token" => $user->getReset_token()]));
+            $this->setAltBody("In order to change your password please click on this link http://localhost:8000" . $this->router->url("password_update", ["id" => $user->getId(), "token" => $user->getReset_token()]));
 
             // send the mail
             $this

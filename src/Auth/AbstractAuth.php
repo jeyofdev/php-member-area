@@ -10,6 +10,9 @@
     use jeyofdev\php\member\area\Session\Session;
 
 
+    /**
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     abstract class AbstractAuth
     {
         /**
@@ -76,7 +79,7 @@
 
 
         /**
-         * {@inheritDoc}
+         * Get the path of config
          */
         public function getConfigPath() : string
         {

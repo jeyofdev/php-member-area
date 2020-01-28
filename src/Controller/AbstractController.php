@@ -93,7 +93,7 @@
 
 
         /**
-         * {@inheritDoc}
+         * Get the path of config
          */
         public function getConfigPath() : string
         {

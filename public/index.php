@@ -25,13 +25,17 @@
     $router = new Router(VIEW_PATH);
     $router
         ->get('/', 'home/index', 'home')
+
         ->match('/login/', 'security/auth/login', 'login')
         ->match('/logout/', 'security/auth/logout', 'logout')
-        ->match('/register/', 'security/register/index', 'register')
-        ->match('/register/confirm/[i:id]-[*:token]/', 'security/register/confirm')
-        ->get('/account/', 'admin/account', 'account')
-        ->match('/forget/', 'security/auth/forget', 'forget')
-        ->match('/reset/[i:id]-[*:token]/', 'security/auth/reset', 'reset');
+
+        ->match('/user/register/', 'security/register/index', 'register')
+        ->match('/user/register/confirm/[i:id]-[*:token]/', 'security/register/confirm', 'register_confirm')
+
+        ->match('/user/password/new/', 'security/password/new', 'password_new')
+        ->match('/user/password/update/[i:id]-[*:token]/', 'security/password/update', 'password_update')
+
+        ->get('/account/', 'admin/account', 'account');
 
 
     // controller

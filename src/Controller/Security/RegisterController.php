@@ -9,6 +9,11 @@
     use jeyofdev\php\member\area\Form\RegisterForm;
 
 
+    /**
+     * Controller who manages the registration of a user
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     class RegisterController extends AbstractController
     {
         /**

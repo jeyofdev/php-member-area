@@ -8,6 +8,9 @@
     use jeyofdev\php\member\area\Session\Session;
 
 
+    /**
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     class Auth {
         /**
          * Check that the user is logged in

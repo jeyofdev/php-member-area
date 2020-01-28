@@ -13,6 +13,11 @@
     use jeyofdev\php\member\area\Session\Session;
 
 
+    /**
+     * User registration
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     class Register extends AbstractAuth
     {
         /**
@@ -38,7 +43,7 @@
             parent::__construct($session, $router);
 
             $this->validator = new RegisterValidator("en", $_POST, $this->repository);
-            $this->mailer = new RegisterMail();
+            $this->mailer = new RegisterMail($this->router);
         }
 
 

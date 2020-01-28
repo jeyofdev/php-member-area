@@ -3,6 +3,7 @@
     namespace jeyofdev\php\member\area\Mail;
 
 
+    use jeyofdev\php\member\area\Router\Router;
     use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -19,6 +20,13 @@
          * @var string
          */
         private $configPath = CONFIG_PATH;
+
+
+
+        /**
+         * @var Router
+         */
+        protected $router;
 
 
 
@@ -65,8 +73,12 @@
 
 
 
-        public function __construct ()
+        /**
+         * @param Router $router
+         */
+        public function __construct (Router $router)
         {
+            $this->router = $router;
             $this->mail = new PHPMailer(true);
 
             require $this->getConfigPath() . DIRECTORY_SEPARATOR . 'mail.php';

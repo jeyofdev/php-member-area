@@ -7,6 +7,11 @@
     use jeyofdev\php\member\area\Auth\Auth;
 
 
+    /**
+     * Admin page controller
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     class AdminController extends AbstractController
     {
         public function account () : void

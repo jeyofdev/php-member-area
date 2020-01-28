@@ -9,6 +9,11 @@
     use jeyofdev\php\member\area\Session\Session;
 
 
+    /**
+     * Connect a user
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     class Connect extends AbstractAuth
     {
         /**

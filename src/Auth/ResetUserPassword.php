@@ -14,6 +14,11 @@
     use jeyofdev\php\member\area\Session\Session;
 
 
+    /**
+     * Password change
+     * 
+     * @author jeyofdev <jgregoire.pro@gmail.com>
+     */
     class ResetUserPassword extends AbstractAuth
     {
         /**
@@ -47,7 +52,7 @@
         {
             parent::__construct($session, $router);
 
-            $this->mailer = new ForgetMail();
+            $this->mailer = new ForgetMail($this->router);
         }
 
 
@@ -57,7 +62,7 @@
          *
          * @return void
          */
-        public function forget () : void
+        public function new () : void
         {
             $this->validator = new ForgetValidator("en", $_POST, $this->repository);
 
@@ -105,7 +110,7 @@
          * @param string $token
          * @return void
          */
-        public function reset (int $userId, string $token) : void
+        public function update (int $userId, string $token) : void
         {
             // get the user
             $user = $this->repository->findOneBy(["id" => $userId, "reset_token" => $token]);
@@ -119,9 +124,10 @@
                 if ($this->validator->isSubmit()) {
                     if ($this->validator->isValid()) {
                         $user
+                            ->setPassword($_POST["password"])
                             ->setReset_token()
                             ->setReset_at();
-    
+
                         $this->entityManager->persist($user);
                         $this->entityManager->flush();
     

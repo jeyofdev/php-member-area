@@ -22,9 +22,9 @@
         public function execute (User $user) : void
         {
             // set the confirmation email
-            $this->setSubject("Confirmation de votre compte");
-            $this->setBody("Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/register/confirm/" . $user->getId() . "-" . $user->getConfirmation_token());
-            $this->setAltBody("Afin de valider votre compte merci de cliquer sur ce lien http://localhost:8000/register/confirm/" . $user->getId() . "-" . $user->getConfirmation_token());
+            $this->setSubject("Confirmation of your account");
+            $this->setBody("In order to validate your account please click on this link http://localhost:8000" . $this->router->url("register_confirm", ["id" => $user->getId(), "token" => $user->getConfirmation_token()]));
+            $this->setAltBody("In order to validate your account please click on this link http://localhost:8000" . $this->router->url("register_confirm", ["id" => $user->getId(), "token" => $user->getConfirmation_token()]));
 
             // send the mail
             $this
